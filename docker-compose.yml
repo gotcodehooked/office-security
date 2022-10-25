@@ -1,0 +1,73 @@
+version: "1"
+services:
+  postgres_db:
+    container_name: postgres_db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_USER=admin
+    image: postgres:15.0-alpine
+
+
+  api-gateway:
+    image: api-gateway:0.0.1-SNAPSHOT
+    ports:
+      - 8765:8765
+    environment:
+      - EUREKA_HOST=http://discovery-service:8761/eureka/
+    deploy:
+      replicas: 1
+
+  discovery-service:
+    image: discovery-service:0.0.1-SNAPSHOT
+    ports:
+      - 8761:8761
+    environment:
+      - EUREKA_HOST=http://discovery-service:8761/eureka/
+    deploy:
+      replicas: 1
+
+  control-point-service:
+    image: control-point-service:0.0.1-SNAPSHOT
+    environment:
+      - EUREKA_HOST=http://discovery-service:8761/eureka/
+
+
+
+#  notification-service:
+#   environment:
+#     SPRING_PROFILES_ACTIVE: dev
+#   image: gotcodehooked/notification-service:0.0.1-SNAPSHOT
+#   ports:
+#    - "8082:8082/tcp"
+#   deploy:
+#     replicas: 1
+
+
+#  registration-service:
+#    environment:
+#      SPRING_PROFILES_ACTIVE: dev
+
+#  kafka:
+#      environment:
+#        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092
+#        KAFKA_BROKER_ID: 1
+#        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#        KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
+#      image: confluentinc/cp-kafka:latest
+#      ports:
+#        - "29092:29092/tcp"
+#      deploy:
+#        replicas: 1
+
+
+#  zookeeper:
+#      environment:
+#        ZOOKEEPER_CLIENT_PORT: 32181
+#        ZOOKEEPER_TICK_TIME: 2000
+#      image: confluentinc/cp-zookeeper:latest
+#      ports:
+#        - "32181:32181/tcp"
+#      deploy:
+#        replicas: 1

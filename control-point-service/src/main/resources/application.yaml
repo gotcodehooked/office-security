@@ -1,0 +1,27 @@
+server:
+  port: 0
+
+grpc:
+  client:
+    control-point-service:
+      address: static://localhost:9090
+      negotiation-type: plaintext
+
+
+
+spring:
+  application:
+    name: control-point-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_HOST:http://host.docker.internal:8761/eureka/}
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+  instance:
+    instance-id: control-point-service-${random.uuid}
+
+
+

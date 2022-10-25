@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.example.grpc;
+
+message CardDetailRequest{
+  string UUID = 1;
+  string firstName = 2;
+  string lastName =3;
+  string userID = 4;
+}
+
+message CardDetailResponse{
+  bool accept = 1;
+}
+
+service CardDetailService{
+  rpc isAccept(CardDetailRequest) returns (CardDetailResponse);
+}

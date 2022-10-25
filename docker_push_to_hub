@@ -1,0 +1,2 @@
+docker tag  cc994726847f gotcodehooked/postgres:15.0-alpine
+docker push gotcodehooked/postgres:15.0-alpine

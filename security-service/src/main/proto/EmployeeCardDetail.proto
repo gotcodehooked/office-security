@@ -3,10 +3,7 @@ syntax = "proto3";
 package com.example.grpc;
 
 message CardDetailRequest{
-  string UUID = 1;
-  string firstName = 2;
-  string lastName =3;
-  string userID = 4;
+  string id= 1;
 }
 
 message CardDetailResponse{

@@ -25,12 +25,7 @@ public class Controller {
 
     @PostMapping(path = "/verification", produces = MediaType.APPLICATION_JSON_VALUE)
     public boolean verification(@RequestBody EmployeeCardDetail employeeCardDetail) throws SSLException {
-        logger.info(employeeCardDetail.getFistName());
-        logger.info(employeeCardDetail.getUUID());
-        logger.info(employeeCardDetail.getUserID());
-
+        logger.info("USER ID:  " + employeeCardDetail.getId());
         return checkCardService.sendToSecurityService(employeeCardDetail);
     }
-
-
 }
